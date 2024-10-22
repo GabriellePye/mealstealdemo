@@ -15,8 +15,9 @@ st.markdown("""
 st.markdown(
     """
     <style>
-    .reportview-container {
+    .stApp {
         background-color: #00FF00; /* Green color */
+        color: white;
     }
     </style>
     """,
