@@ -10,13 +10,24 @@ st.title('Meal Steal - Personalized Meal Planner & Grocery Saver')
 st.markdown("""
     Welcome to Meal Steal! This app helps you create personalized meal plans tailored to your dietary needs and health goals while finding the best grocery deals.
 """)
-st.markdown('<style>body{background-color: green;}</style>',unsafe_allow_html=True)
 
+# Set the background color
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background-color: #00FF00; /* Green color */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # -------------------------
 # 2. User Input Section
 # -------------------------
 st.sidebar.header("User Input")
+
 
 # User Health Information
 age = st.sidebar.number_input("Age", min_value=1, max_value=100)
