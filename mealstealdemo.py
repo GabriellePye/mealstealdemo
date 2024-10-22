@@ -11,18 +11,25 @@ st.markdown("""
     Welcome to Meal Steal! This app helps you create personalized meal plans tailored to your dietary needs and health goals while finding the best grocery deals.
 """)
 
-# Set the background color
+# Set the background image
 st.markdown(
     """
     <style>
     .stApp {
-        background-color: #00FF00; /* Green color */
-        color: white;
+        background-image: url('https://static.wikia.nocookie.net/shrek/images/a/a7/Shrek%27s_Swamp_%28Shrek_Forever_After%29.jpg');
+        background-size: cover; /* Cover the entire background */
+        background-position: center; /* Center the image */
+        color: white; /* Set text color to white */
     }
     </style>
     """,
     unsafe_allow_html=True
 )
+
+# -------------------------
+# 2. User Input Section
+# -------------------------
+st.sidebar.header("User Input")
 
 # -------------------------
 # 2. User Input Section
