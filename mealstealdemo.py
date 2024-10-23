@@ -13,7 +13,7 @@ st.markdown("""
         background: url('https://i.ibb.co/MpbbQDx/meal-steal-bg.gif');
         background-size: cover;
         background-position: top;
-        color: #DAD7CD; /* Light text */
+*/      color: #DAD7CD; /* Light text */ */
     }
 
     /* Styling for the title and subheader */
@@ -49,7 +49,7 @@ st.markdown("""
         width: 200px;
         height: 200px;
         margin: 20px;
-        background-color: #ffffffcc;
+        background-color: #ffffff;
         cursor: pointer;
         text-align: center;
         padding: 20px;
