@@ -100,7 +100,50 @@ tab1, tab2, tab3 = st.tabs(["Meal Plan", "Basket", "Meal Wrap"])
 # Meal Plan Tab
 with tab1:
     st.subheader("Your Personalized Meal Plan")
-    
+
+    # Inject CSS for card hover effect
+    st.markdown("""
+        <style>
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            width: 250px;
+            padding: 10px;
+            background-color: #67944C;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .card h2 {
+            color: #DAD7CD;
+            font-size: 24px;
+        }
+
+        .card p {
+            color: #ffffff;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     # Sample meal plan (mock data)
     meals = ['Breakfast', 'Lunch', 'Snack', 'Dinner']
     meal_plan = {
@@ -113,10 +156,23 @@ with tab1:
         'Day 7': ['Toast with avocado', 'Rice and beans', 'Dark chocolate', 'Grilled shrimp with veggies'],
     }
 
-    # Display the meal plan
-    for day in range(1, days + 1):
-        st.subheader(f"Day {day}")
-        st.write(meal_plan[f'Day {day}'])
+    # Display meal plan using card layout
+    for day in range(1, 8):
+        st.markdown(f"<h3 style='color:#DAD7CD;'>Day {day}</h3>", unsafe_allow_html=True)
+        st.markdown('<div class="card-container">', unsafe_allow_html=True)
+
+        for idx, meal in enumerate(meals):
+            st.markdown(f"""
+                <div class="card">
+                    <div class="image-box">
+                        <img src="https://via.placeholder.com/150" alt="{meal}">
+                    </div>
+                    <h2>{meal}</h2>
+                    <p>{meal_plan[f'Day {day}'][idx]}</p>
+                </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # Basket Tab
 with tab2:
@@ -141,17 +197,19 @@ with tab2:
 # Meal Wrap Tab
 with tab3:
     st.subheader("Meal Plan Nutrition Stats")
-    
+
     # Mockup data for calorie breakdown
-    calories = np.random.randint(300, 800, size=(days, 4))
+    calories = np.random.randint(300, 800, size=(7, 4))  # for 7 days and 4 meals
     meals_labels = ['Breakfast', 'Lunch', 'Snack', 'Dinner']
-    
+
     fig, ax = plt.subplots()
     ax.bar(meals_labels, calories.sum(axis=0), color=['green', 'blue', 'orange', 'red'])
     ax.set_ylabel('Total Calories')
     ax.set_title('Total Calories per Meal Over 7 Days')
-    
+
     st.pyplot(fig)
+
+
 
 # -------------------------
 # 4. Download Options (CSV)
