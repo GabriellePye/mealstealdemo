@@ -6,25 +6,51 @@ import numpy as np
 # -------------------------
 # 1. App Title and Description
 # -------------------------
-st.title('Meal Steal - Personalized Meal Planner & Grocery Saver')
+import streamlit as st
+
+# Title and Subheader
+st.markdown("""
+    <style>
+    /* Import Sergio Trendy font from Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Sergio+Trendy&display=swap');
+    
+    /* Custom styling for the title */
+    .title {
+        font-family: 'Sergio Trendy', sans-serif;
+        color: #DAD7CD;  /* Light color for title */
+        font-size: 64px;
+        text-align: center;
+        margin-top: 0;
+    }
+
+    /* Custom styling for the subheader */
+    .subheader {
+        font-family: 'Sergio Trendy', sans-serif;
+        color: #DAD7CD;  /* Light color for subheader */
+        font-size: 32px;
+        text-align: center;
+        margin-top: -20px;
+    }
+
+    /* Background image setup, tiled across the app */
+    .stApp {
+        background-image: url('https://i.ibb.co/TWyRv88/Meal-Steal-Logo-1.png');
+        background-size: 200px 200px; /* Size of each tile */
+        background-repeat: repeat;  /* Tiling the image */
+        background-position: center; /* Center the image */
+    }
+    </style>
+    
+    <h1 class="title">Meal Steal</h1>
+    <h2 class="subheader">Get Fit, Eat Smart, Spend Less</h2>
+    """, 
+    unsafe_allow_html=True
+)
+
+# App description (you can add more functionality here as needed)
 st.markdown("""
     Welcome to Meal Steal! This app helps you create personalized meal plans tailored to your dietary needs and health goals while finding the best grocery deals.
 """)
-
-# Set the background image
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-image: url('https://static.wikia.nocookie.net/shrek/images/a/a7/Shrek%27s_Swamp_%28Shrek_Forever_After%29.jpg');
-        background-size: cover; /* Cover the entire background */
-        background-position: center; /* Center the image */
-        color: white; /* Set text color to white */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 # -------------------------
 # 2. User Input Section
