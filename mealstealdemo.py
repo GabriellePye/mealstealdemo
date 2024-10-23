@@ -29,7 +29,7 @@ st.markdown("""
 
     /* Custom styling for sidebar */
     .sidebar .sidebar-content {
-        background-color: #67944C;  /* Green background */
+        background-color: #335D3B;  /* Dark green background */
         color: #DAD7CD;  /* Light text */
     }
     
@@ -46,13 +46,23 @@ st.markdown("""
         border-color: #DAD7CD;
     }
 
+    /* Styling for tabs and their content */
+    .stTabs [role="tab"] {
+        background-color: rgba(51, 93, 59, 0.8);  /* Dark green with 80% opacity */
+        color: #DAD7CD;  /* Light text */
+    }
+
+    .stTabs [role="tabpanel"] {
+        background-color: rgba(51, 93, 59, 0.8);  /* Dark green with 80% opacity */
+        color: #DAD7CD;  /* Light text */
+    }
     </style>
     """, unsafe_allow_html=True)
 
 # Replace title with image
 st.markdown("""
     <div class="text-container">
-        <img src="https://i.ibb.co/yF1LTkb/1.png" alt="Meal Steal Logo" style="width: 300px;">
+        <img src="https://i.ibb.co/tmQpKH2/1-removebg-preview.png" alt="Meal Steal Logo" style="width: 300px;">
         <h2 style="color: #DAD7CD; font-family: 'Sergio Trendy', serif;">Get Fit, Eat Smart, Spend Less</h2>
     </div>
 """, unsafe_allow_html=True)
