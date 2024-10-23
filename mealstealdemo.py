@@ -1,77 +1,71 @@
-# Import necessary libraries
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 # -------------------------
-# 1. App Title and Description
+# 1. App Title and Description with Custom Image and Styling
 # -------------------------
 
-# Title and Subheader
 st.markdown("""
     <style>
-    /* Import Sergio Trendy font from Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Sergio+Trendy&display=swap');
-    
-    /* Custom styling for the title and subheader container */
+    /* Custom styling for the opaque box */
     .text-container {
-        background-color: rgba(0, 0, 0, 0.6);  /* Black background with 60% opacity */
+        background-color: rgba(51, 93, 59, 0.8);  /* 335D3B color with 80% opacity */
         padding: 20px;
         border-radius: 15px;
         text-align: center;
-        max-width: 80%; /* Adjust width */
-        margin: 0 auto; /* Center the box */
-    }
-
-    /* Custom styling for the title */
-    .title {
-        font-family: 'Sergio Trendy', serif;
-        color: #DAD7CD;  /* Light color for title */
-        font-size: 64px;
-        margin: 0;
-    }
-
-    /* Custom styling for the subheader */
-    .subheader {
-        font-family: 'Sergio Trendy', serif;
-        color: #DAD7CD;  /* Light color for subheader */
-        font-size: 32px;
-        margin-top: 10px;
+        max-width: 80%;  /* Adjust width */
+        margin: 0 auto;  /* Center the box */
     }
 
     /* Background image setup, tiled across the app */
     .stApp {
-        background-image: url('https://i.ibb.co/TWyRv88/Meal-Steal-Logo-1.png');
-        background-size: 200px 200px; /* Size of each tile */
+        background-image: url('https://i.ibb.co/1L9TWy5/3.png');
+        background-size: 200px 200px;  /* Size of each tile */
         background-repeat: repeat;  /* Tiling the image */
-        background-position: center; /* Center the image */
+        background-position: center;  /* Center the image */
     }
-    </style>
-    
-    <div class="text-container">
-        <h1 class="title">Meal Steal</h1>
-        <h2 class="subheader">Get Fit, Eat Smart, Spend Less</h2>
-    </div>
-    """, 
-    unsafe_allow_html=True
-)
 
-# App description (you can add more functionality here as needed)
+    /* Custom styling for sidebar */
+    .sidebar .sidebar-content {
+        background-color: #67944C;  /* Green background */
+        color: #DAD7CD;  /* Light text */
+    }
+    
+    /* Input field customization */
+    input, select {
+        background-color: #335D3B;  /* Dark green */
+        color: #DAD7CD;  /* Light text */
+    }
+
+    /* Customize button styles */
+    .css-1q8dd3e { 
+        background-color: #335D3B;
+        color: #DAD7CD;
+        border-color: #DAD7CD;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+# Replace title with image
+st.markdown("""
+    <div class="text-container">
+        <img src="https://i.ibb.co/yF1LTkb/1.png" alt="Meal Steal Logo" style="width: 300px;">
+        <h2 style="color: #DAD7CD; font-family: 'Sergio Trendy', serif;">Get Fit, Eat Smart, Spend Less</h2>
+    </div>
+""", unsafe_allow_html=True)
+
+# App description
 st.markdown("""
     Welcome to Meal Steal! This app helps you create personalized meal plans tailored to your dietary needs and health goals while finding the best grocery deals.
 """)
 
-
 # -------------------------
-# 2. User Input Section
-# -------------------------
-st.sidebar.header("User Input")
-
-# -------------------------
-# 2. User Input Section
+# 2. Sidebar User Input Form with Custom Styling
 # -------------------------
 st.sidebar.header("User Input")
-
 
 # User Health Information
 age = st.sidebar.number_input("Age", min_value=1, max_value=100)
@@ -88,13 +82,15 @@ exercise_level = st.sidebar.selectbox("Exercise Level", ["Sedentary", "Lightly A
 st.sidebar.markdown("### Set Meal Plan Duration")
 days = st.sidebar.slider("Meal Plan Duration (days)", 1, 7, 7)
 
-# Submit Button
-if st.sidebar.button("Generate Meal Plan"):
-    # -------------------------
-    # 3. Mock Meal Plan Generation
-    # -------------------------
-    st.header("Your Personalized Meal Plan")
+# -------------------------
+# 3. Main Body with 3 Tabs (Meal Plan, Basket, Meal Wrap)
+# -------------------------
+tab1, tab2, tab3 = st.tabs(["Meal Plan", "Basket", "Meal Wrap"])
 
+# Meal Plan Tab
+with tab1:
+    st.subheader("Your Personalized Meal Plan")
+    
     # Sample meal plan (mock data)
     meals = ['Breakfast', 'Lunch', 'Snack', 'Dinner']
     meal_plan = {
@@ -112,10 +108,9 @@ if st.sidebar.button("Generate Meal Plan"):
         st.subheader(f"Day {day}")
         st.write(meal_plan[f'Day {day}'])
 
-    # -------------------------
-    # 4. Dynamic Grocery List and Price Comparison (Mockup)
-    # -------------------------
-    st.header("Grocery Price Optimization")
+# Basket Tab
+with tab2:
+    st.subheader("Grocery Price Optimization")
     st.write("Fetching the best deals across major UK supermarkets...")
 
     # Mockup data for grocery prices
@@ -129,14 +124,13 @@ if st.sidebar.button("Generate Meal Plan"):
         "Price (Sainsbury's)": np.random.uniform(1, 5, 20),
         "Price (Waitrose)": np.random.uniform(1, 5, 20),
     }
-    
+
     df_grocery = pd.DataFrame(grocery_data)
     st.dataframe(df_grocery)
 
-    # -------------------------
-    # 5. Visualization (Calorie Intake Mockup)
-    # -------------------------
-    st.header("Meal Plan Nutrition Stats")
+# Meal Wrap Tab
+with tab3:
+    st.subheader("Meal Plan Nutrition Stats")
     
     # Mockup data for calorie breakdown
     calories = np.random.randint(300, 800, size=(days, 4))
@@ -148,21 +142,21 @@ if st.sidebar.button("Generate Meal Plan"):
     ax.set_title('Total Calories per Meal Over 7 Days')
     
     st.pyplot(fig)
-     # -------------------------
-    # 6. Download Options (CSV)
-    # -------------------------
-    st.header("Download Your Meal Plan & Grocery List")
-    
-    @st.cache
-    def convert_df(df):
-        return df.to_csv(index=False).encode('utf-8')
 
-    csv = convert_df(df_grocery)
+# -------------------------
+# 4. Download Options (CSV)
+# -------------------------
+st.header("Download Your Meal Plan & Grocery List")
 
-    st.download_button(
-        label="Download Grocery List as CSV",
-        data=csv,
-        file_name='grocery_list.csv',
-        mime='text/csv',
-    )
+@st.cache
+def convert_df(df):
+    return df.to_csv(index=False).encode('utf-8')
 
+csv = convert_df(df_grocery)
+
+st.download_button(
+    label="Download Grocery List as CSV",
+    data=csv,
+    file_name='grocery_list.csv',
+    mime='text/csv',
+)
