@@ -6,7 +6,6 @@ import numpy as np
 # -------------------------
 # 1. App Title and Description
 # -------------------------
-import streamlit as st
 
 # Title and Subheader
 st.markdown("""
@@ -14,22 +13,30 @@ st.markdown("""
     /* Import Sergio Trendy font from Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Sergio+Trendy&display=swap');
     
+    /* Custom styling for the title and subheader container */
+    .text-container {
+        background-color: rgba(0, 0, 0, 0.6);  /* Black background with 60% opacity */
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        max-width: 80%; /* Adjust width */
+        margin: 0 auto; /* Center the box */
+    }
+
     /* Custom styling for the title */
     .title {
-        font-family: 'Sergio Trendy', sans-serif;
+        font-family: 'Sergio Trendy', serif;
         color: #DAD7CD;  /* Light color for title */
         font-size: 64px;
-        text-align: center;
-        margin-top: 0;
+        margin: 0;
     }
 
     /* Custom styling for the subheader */
     .subheader {
-        font-family: 'Sergio Trendy', sans-serif;
+        font-family: 'Sergio Trendy', serif;
         color: #DAD7CD;  /* Light color for subheader */
         font-size: 32px;
-        text-align: center;
-        margin-top: -20px;
+        margin-top: 10px;
     }
 
     /* Background image setup, tiled across the app */
@@ -41,8 +48,10 @@ st.markdown("""
     }
     </style>
     
-    <h1 class="title">Meal Steal</h1>
-    <h2 class="subheader">Get Fit, Eat Smart, Spend Less</h2>
+    <div class="text-container">
+        <h1 class="title">Meal Steal</h1>
+        <h2 class="subheader">Get Fit, Eat Smart, Spend Less</h2>
+    </div>
     """, 
     unsafe_allow_html=True
 )
@@ -51,6 +60,7 @@ st.markdown("""
 st.markdown("""
     Welcome to Meal Steal! This app helps you create personalized meal plans tailored to your dietary needs and health goals while finding the best grocery deals.
 """)
+
 
 # -------------------------
 # 2. User Input Section
