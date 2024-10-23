@@ -92,57 +92,94 @@ exercise_level = st.sidebar.selectbox("Exercise Level", ["Sedentary", "Lightly A
 st.sidebar.markdown("### Set Meal Plan Duration")
 days = st.sidebar.slider("Meal Plan Duration (days)", 1, 7, 7)
 
+import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
 # -------------------------
-# 3. Main Body with 3 Tabs (Meal Plan, Basket, Meal Wrap)
+# App Layout and CSS
+# -------------------------
+st.markdown("""
+    <style>
+    /* Container for the carousel */
+    .container {
+        width: 100%;
+        max-width: 820px;
+        height: 340px;
+        display: flex;
+        gap: 10px;
+        margin: 20px auto; /* Center the container */
+        overflow: hidden; /* Hide overflow for carousel effect */
+    }
+    
+    /* Card styling */
+    .card {
+        min-width: 200px;
+        height: 100%;
+        border-radius: 30px;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+        flex-grow: 1;
+        cursor: pointer;
+        position: relative;
+        transition: flex-grow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        background-color: #67944C; /* Card background */
+    }
+
+    /* Profile image styling */
+    .profile-image > img {
+        width: 100%;
+        height: 150px; /* Fixed height for images */
+        object-fit: cover; /* Cover the area */
+    }
+
+    /* Card content */
+    .card-content {
+        color: #DAD7CD; /* Text color */
+        padding: 10px;
+        transition: transform 0.5s, opacity 0.5s;
+        transform: translateY(100%); /* Initial position */
+        opacity: 0; /* Initially hidden */
+    }
+
+    /* Card hover effect */
+    .card:hover {
+        flex-grow: 2; /* Expand card on hover */
+    }
+
+    .card:hover .card-content {
+        transform: translateY(0); /* Show content */
+        opacity: 1; /* Fade in */
+    }
+
+    /* Title styling */
+    .card-content > h2 {
+        margin: 0; /* Remove default margin */
+    }
+
+    /* Styling for the title on hover */
+    .card:hover .title {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+
+    /* Fade-out effect for cards not in view */
+    .fade {
+        opacity: 0.5; /* Faded state */
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# -------------------------
+# Main Body with 3 Tabs (Meal Plan, Basket, Meal Wrap)
 # -------------------------
 tab1, tab2, tab3 = st.tabs(["Meal Plan", "Basket", "Meal Wrap"])
 
 # Meal Plan Tab
 with tab1:
     st.subheader("Your Personalized Meal Plan")
-
-    # Inject CSS for card hover effect
-    st.markdown("""
-        <style>
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .card {
-            width: 250px;
-            padding: 10px;
-            background-color: #67944C;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-align: center;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .card h2 {
-            color: #DAD7CD;
-            font-size: 24px;
-        }
-
-        .card p {
-            color: #ffffff;
-        }
-        </style>
-    """, unsafe_allow_html=True)
 
     # Sample meal plan (mock data)
     meals = ['Breakfast', 'Lunch', 'Snack', 'Dinner']
@@ -156,19 +193,29 @@ with tab1:
         'Day 7': ['Toast with avocado', 'Rice and beans', 'Dark chocolate', 'Grilled shrimp with veggies'],
     }
 
-    # Display meal plan using card layout
-    for day in range(1, 8):
-        st.markdown(f"<h3 style='color:#DAD7CD;'>Day {day}</h3>", unsafe_allow_html=True)
-        st.markdown('<div class="card-container">', unsafe_allow_html=True)
+    # Get the current day index (Day 1 = 0)
+    current_day_index = 3  # Change this based on today's actual day (0 for Day 1, etc.)
 
-        for idx, meal in enumerate(meals):
+    # Display meals for yesterday, today, and tomorrow
+    for offset in range(-1, 2):  # -1 for yesterday, 0 for today, +1 for tomorrow
+        day_index = current_day_index + offset
+        day_index = max(0, min(day_index, len(meal_plan) - 1))  # Clamp to valid index
+        
+        # Create container for cards
+        st.markdown('<div class="container">', unsafe_allow_html=True)
+
+        # Create card for each meal
+        for meal in meals:
+            meal_index = meals.index(meal)
             st.markdown(f"""
-                <div class="card">
-                    <div class="image-box">
-                        <img src="https://via.placeholder.com/150" alt="{meal}">
+                <div class="card {'fade' if offset != 0 else ''}">
+                    <div class="profile-image">
+                        <img src="https://via.placeholder.com/200x150.png" alt="{meal}">
                     </div>
-                    <h2>{meal}</h2>
-                    <p>{meal_plan[f'Day {day}'][idx]}</p>
+                    <div class="card-content">
+                        <h2>{meal}</h2>
+                        <p>{meal_plan[f'Day {day_index}'][meal_index]}</p>
+                    </div>
                 </div>
             """, unsafe_allow_html=True)
 
@@ -208,7 +255,6 @@ with tab3:
     ax.set_title('Total Calories per Meal Over 7 Days')
 
     st.pyplot(fig)
-
 
 
 # -------------------------
