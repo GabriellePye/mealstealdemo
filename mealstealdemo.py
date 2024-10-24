@@ -45,25 +45,25 @@ st.markdown("""
 }
 
 /* Tab panel styling to have a frosted effect */
-##.stTabs [role="tabpanel"] {
- ##   border: 2px solid white;
- ##   backdrop-filter: blur(20px);  /* Frosted effect */
- ##   background: rgba(255, 255, 255, 0.1);  /* Background with slight opacity */
-  ##  padding: 20px;  /* Padding for content */
- ##   border-radius: 10px;  /* Rounded corners */
- ##   color: #DAD7CD;  /* Light text color */
-##}
+.stTabs [role="tabpanel"] {
+    border: 2px solid white;
+    backdrop-filter: blur(20px);  /* Frosted effect */
+    background: rgba(255, 255, 255, 0.1);  /* Background with slight opacity */
+    padding: 20px;  /* Padding for content */
+    border-radius: 10px;  /* Rounded corners */
+    color: #DAD7CD;  /* Light text color */
+}
 
 /* Container for main content */
-.content-section {
-    border: 2px solid white;
-    backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 80%;  /* Adjusted for centering */
-    margin: 20px auto;  /* Centered with margin */
-}
+##.content-section {
+ ##   border: 2px solid white;
+ ##   backdrop-filter: blur(20px);
+ ##   background: rgba(255, 255, 255, 0.1);
+ ##   padding: 20px;
+##    border-radius: 10px;
+##    max-width: 80%;  /* Adjusted for centering */
+##    margin: 20px auto;  /* Centered with margin */
+##}
 
 /* Cards for meal plan */
 .card {
