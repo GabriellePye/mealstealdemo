@@ -20,7 +20,7 @@ st.markdown("""
         background-size: cover;
         background-position: top;
         color: #DAD7CD; /* Light text */
-@@ -29,124 +26,86 @@
+
         width: 300px;
     }
     .subheader-container {
@@ -172,7 +172,7 @@ st.markdown('<div class="container">', unsafe_allow_html=True)
 st.markdown("""
     Welcome to Meal Steal! This app helps you create personalized meal plans tailored to your dietary needs and health goals while finding the best grocery deals.
 """)
-@@ -177,7 +136,7 @@
+
 
 # Meal Plan Tab
 with tab1:
@@ -181,7 +181,7 @@ with tab1:
 
     # Sample meal plan (mock data)
     meals = ['Breakfast', 'Lunch', 'Snack', 'Dinner']
-@@ -191,57 +150,29 @@
+
         'Day 7': ['Toast with avocado', 'Rice and beans', 'Dark chocolate', 'Grilled shrimp with veggies'],
     }
 
