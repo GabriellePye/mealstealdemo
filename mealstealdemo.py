@@ -1,114 +1,132 @@
+# Import necessary libraries
 import streamlit as st
+import pandas as pd
+import numpy as np
 
 # -------------------------
-# 1. Styling and Background
+# 1. App Title and Description
 # -------------------------
-
-# Custom CSS for styling
+st.title('Meal Steal - Personalized Meal Planner & Grocery Saver')
 st.markdown("""
-    <style> 
-    /* App Background */
+    Welcome to Meal Steal! This app helps you create personalized meal plans tailored to your dietary needs and health goals while finding the best grocery deals.
+""")
+
+# Set the background image
+st.markdown(
+    """
+    <style>
     .stApp {
-        background: url('https://i.ibb.co/MpbbQDx/meal-steal-bg.gif'); /* Replace with your GIF URL */
-        background-size: cover; 
-        background-position: top;
+        background-image: url('https://static.wikia.nocookie.net/shrek/images/a/a7/Shrek%27s_Swamp_%28Shrek_Forever_After%29.jpg');
+        background-size: cover; /* Cover the entire background */
+        background-position: center; /* Center the image */
+        color: white; /* Set text color to white */
     }
-
-    /* Centered logo and subheader container */
-    .text-container {
-        text-align: center;
-        margin: 50px auto;
-    }
-
-    .text-container img { 
-        width: 200px;
-    }
-
-    /* Subheader with solid background for readability */
-    .subheader {
-        background-color: rgba(255, 255, 255, 0.8); /* White transparent background */
-        padding: 20px;
-        border-radius: 10px;
-        display: inline-block;
-        margin-top: 20px;
-    }
-
-    /* Styling for the individual tabs */
-    .stTabs [role='tablist'] .stTab {
-        background-color: #2E8B57; /* Background for each tab */
-        border-radius: 10px; /* Rounded corners */
-        padding: 10px;
-        margin: 0 5px;
-    }
-
-    /* Hover effect for tabs */
-    .stTabs [role='tablist'] .stTab:hover {
-        background-color: #67944C; /* Hover color */
-    }
-
-    /* Active tab style */
-    .stTabs [role='tablist'] .stTab[aria-selected="true"] {
-        background-color: #4CAF50; /* Active tab color */
-        color: white;
-    }
-
-    /* Tab content pages with a full solid background */
-    .tab-content {
-        background-color: rgba(255, 255, 255, 0.9); /* White solid background */
-        padding: 20px;
-        border-radius: 15px; /* Rounded corners */
-        margin-top: 20px;
-        max-width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
     </style>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
 # -------------------------
-# 2. Logo and Subheader
+# 2. User Input Section
 # -------------------------
-
-st.markdown("""
-    <div class="text-container">
-        <img src="https://i.ibb.co/tmQpKH2/1-removebg-preview.png" alt="Meal Steal Logo"> <!-- Your logo URL -->
-        <div class="subheader">
-            <h2>Get Fit, Eat Smart, Spend Less</h2>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
+st.sidebar.header("User Input")
 
 # -------------------------
-# 3. Tabs and Content
+# 2. User Input Section
 # -------------------------
+st.sidebar.header("User Input")
 
-# Creating tabs for different sections
-tab1, tab2, tab3, tab4 = st.tabs(['Meal Plan', 'Recipes', 'Ingredients', 'Meal Wrap'])
 
-# Apply individual backgrounds to the tabs' content
-with tab1:
-    st.markdown("<div class='tab-content'><h3>Your Personalized Meal Plan</h3></div>", unsafe_allow_html=True)
-    st.write("Content for the meal plan goes here...")
+# User Health Information
+age = st.sidebar.number_input("Age", min_value=1, max_value=100)
+gender = st.sidebar.selectbox("Gender", ["Male", "Female", "Other"])
+weight = st.sidebar.number_input("Weight (kg)", min_value=30, max_value=200)
+height = st.sidebar.number_input("Height (cm)", min_value=120, max_value=250)
+goal = st.sidebar.selectbox("Health Goal", ["Weight Loss", "Maintain Weight", "Muscle Gain"])
+dietary_pref = st.sidebar.multiselect("Dietary Preferences", ["Vegetarian", "Vegan", "Gluten-Free", "None"])
 
-with tab2:
-    st.markdown("<div class='tab-content'><h3>Recipes</h3></div>", unsafe_allow_html=True)
-    st.write("Content for recipes goes here...")
+# Additional Inputs for Personalization
+allergies = st.sidebar.text_input("Allergies (comma-separated)", "")
+exercise_level = st.sidebar.selectbox("Exercise Level", ["Sedentary", "Lightly Active", "Active", "Very Active"])
 
-with tab3:
-    st.markdown("<div class='tab-content'><h3>Ingredients</h3></div>", unsafe_allow_html=True)
-    st.write("Content for ingredients goes here...")
+st.sidebar.markdown("### Set Meal Plan Duration")
+days = st.sidebar.slider("Meal Plan Duration (days)", 1, 7, 7)
 
-with tab4:
-    st.markdown("<div class='tab-content'><h3>Meal Wrap</h3></div>", unsafe_allow_html=True)
-    st.write("Content for meal wrap stats goes here...")
+# Submit Button
+if st.sidebar.button("Generate Meal Plan"):
+    # -------------------------
+    # 3. Mock Meal Plan Generation
+    # -------------------------
+    st.header("Your Personalized Meal Plan")
 
-# -------------------------
-# 4. Footer
-# -------------------------
+    # Sample meal plan (mock data)
+    meals = ['Breakfast', 'Lunch', 'Snack', 'Dinner']
+    meal_plan = {
+        'Day 1': ['Oatmeal with fruit', 'Grilled chicken salad', 'Apple', 'Quinoa with veggies'],
+        'Day 2': ['Greek yogurt with honey', 'Turkey sandwich', 'Carrot sticks', 'Salmon with rice'],
+        'Day 3': ['Smoothie', 'Pasta with tomato sauce', 'Nuts', 'Stir-fried tofu with broccoli'],
+        'Day 4': ['Eggs and toast', 'Chickpea salad', 'Granola bar', 'Beef stir-fry'],
+        'Day 5': ['Pancakes', 'Veggie wrap', 'Yogurt', 'Baked chicken with potatoes'],
+        'Day 6': ['Cereal with milk', 'Quinoa salad', 'Fruit', 'Fish tacos'],
+        'Day 7': ['Toast with avocado', 'Rice and beans', 'Dark chocolate', 'Grilled shrimp with veggies'],
+    }
 
-st.markdown("""
-    <footer>
-        <p style="text-align: center;">© 2024 Meal Steal. All rights reserved.</p>
-    </footer>
-""", unsafe_allow_html=True)
+    # Display the meal plan
+    for day in range(1, days + 1):
+        st.subheader(f"Day {day}")
+        st.write(meal_plan[f'Day {day}'])
+
+    # -------------------------
+    # 4. Dynamic Grocery List and Price Comparison (Mockup)
+    # -------------------------
+    st.header("Grocery Price Optimization")
+    st.write("Fetching the best deals across major UK supermarkets...")
+
+    # Mockup data for grocery prices
+    grocery_data = {
+        "Item": ["Oatmeal", "Fruit", "Chicken", "Salad", "Apple", "Quinoa", 
+                 "Greek Yogurt", "Turkey", "Carrot", "Nuts", "Tofu", "Broccoli", 
+                 "Eggs", "Chickpeas", "Granola", "Beef", "Pancakes", "Veggies", 
+                 "Rice", "Fish", "Avocado"],
+        "Price (Aldi)": np.random.uniform(1, 5, 20),
+        "Price (Tesco)": np.random.uniform(1, 5, 20),
+        "Price (Sainsbury's)": np.random.uniform(1, 5, 20),
+        "Price (Waitrose)": np.random.uniform(1, 5, 20),
+    }
+    
+    df_grocery = pd.DataFrame(grocery_data)
+    st.dataframe(df_grocery)
+
+    # -------------------------
+    # 5. Visualization (Calorie Intake Mockup)
+    # -------------------------
+    st.header("Meal Plan Nutrition Stats")
+    
+    # Mockup data for calorie breakdown
+    calories = np.random.randint(300, 800, size=(days, 4))
+    meals_labels = ['Breakfast', 'Lunch', 'Snack', 'Dinner']
+    
+    fig, ax = plt.subplots()
+    ax.bar(meals_labels, calories.sum(axis=0), color=['green', 'blue', 'orange', 'red'])
+    ax.set_ylabel('Total Calories')
+    ax.set_title('Total Calories per Meal Over 7 Days')
+    
+    st.pyplot(fig)
+     # -------------------------
+    # 6. Download Options (CSV)
+    # -------------------------
+    st.header("Download Your Meal Plan & Grocery List")
+    
+    @st.cache
+    def convert_df(df):
+        return df.to_csv(index=False).encode('utf-8')
+
+    csv = convert_df(df_grocery)
+
+    st.download_button(
+        label="Download Grocery List as CSV",
+        data=csv,
+        file_name='grocery_list.csv',
+        mime='text/csv',
+    )
+
