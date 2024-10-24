@@ -13,7 +13,7 @@ st.markdown("""
         background: url('https://i.ibb.co/MpbbQDx/meal-steal-bg.gif');
         background-size: cover;
         background-position: top;
-*/      color: #DAD7CD; /* Light text */ */
+        color: #DAD7CD; /* Light text */
     }
 
     /* Styling for the title and subheader */
@@ -26,7 +26,7 @@ st.markdown("""
         width: 300px;
     }
 
-    /* Applying new container styling for subheader and welcome box */
+    /* Applying new container styling for subheader and main content (tabs and pages) */
     .container {
         border: 2px solid white;
         backdrop-filter: blur(20px);  /* Blur effect */
@@ -49,7 +49,8 @@ st.markdown("""
         width: 200px;
         height: 200px;
         margin: 20px;
-        background-color: #ffffff;
+        background-color: #67944C;
+        color: white;
         cursor: pointer;
         text-align: center;
         padding: 20px;
@@ -67,6 +68,33 @@ st.markdown("""
         opacity: 0.4;
     }
 
+    /* Custom Toggle Switch (dark green) */
+    .stToggle > div:first-of-type {
+        background-color: #335D3B !important;
+    }
+
+    /* Sidebar form background color */
+    section[data-testid="stSidebar"] {
+        background-color: #335D3B;
+        color: white;
+    }
+
+    /* Custom slider styling - with carrot icon */
+    .stSlider .stSliderTrack {
+        background-color: #67944C !important;
+    }
+    .stSlider .stSliderThumb {
+        background-color: #67944C !important;
+    }
+    .stSlider .stSliderThumb::before {
+        content: '🥕';  /* Adding carrot icon */
+    }
+
+    /* Hover effect for tabs */
+    .stTabs div[role="tab"]:hover {
+        color: #335D3B !important;
+    }
+
     /* Meal day box arrow effect */
     .card .details::before {
         content: '';
@@ -78,17 +106,6 @@ st.markdown("""
         border-bottom: 10px solid transparent;
         border-left: 10px solid #fff;
         z-index: 1;
-    }
-
-    /* Form input styling */
-    input, select, textarea, .stNumberInput, .stSelectbox, .stMultiselect {
-        background-color: #67944C !important;  /* Highlight inputs */
-        color: white;
-    }
-
-    /* Custom Toggle Switch (dark green) */
-    .stToggle > div:first-of-type {
-        background-color: #335D3B !important;
     }
 
     </style>
@@ -103,13 +120,6 @@ st.markdown("""
         </div>
     </div>
 """, unsafe_allow_html=True)
-
-# Welcome Box
-st.markdown('<div class="container">', unsafe_allow_html=True)
-st.markdown("""
-    Welcome to Meal Steal! This app helps you create personalized meal plans tailored to your dietary needs and health goals while finding the best grocery deals.
-""")
-st.markdown('</div>', unsafe_allow_html=True)
 
 # -------------------------
 # 2. Sidebar User Input Form
@@ -150,14 +160,14 @@ with tab1:
         'Day 7': ['Toast with avocado', 'Rice and beans', 'Dark chocolate', 'Grilled shrimp with veggies'],
     }
 
-    # Display meal plan days in a horizontal layout with clickable boxes
+    # Display meal plan days in a horizontal layout with clickable boxes (3-4 per row)
     st.markdown('<div class="container">', unsafe_allow_html=True)
-    for day in meal_plan:
-        st.markdown(f"""
-            <div class="box">
-                <h3>{day}</h3>
-            </div>
-        """, unsafe_allow_html=True)
+    cols = st.columns(3)  # Arrange into 3 columns
+
+    for idx, day in enumerate(meal_plan):
+        with cols[idx % 3]:
+            if st.button(f"{day}"):
+                st.markdown(f"**{day}'s Meals:** {', '.join(meal_plan[day])}")
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Basket Tab - Placeholder
