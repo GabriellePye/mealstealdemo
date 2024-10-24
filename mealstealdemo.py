@@ -1,6 +1,6 @@
-
 import streamlit as st
 import pandas as pd
+import numpy as np
 
 # -------------------------
 # 1. App Title, Background, and Custom Styling
@@ -8,35 +8,26 @@ import pandas as pd
 
 st.markdown("""
     <style>
-    /* ----
-    Background GIF for the entire app
-    ---- */
+    /* Page Background with GIF - removed opaque layer */
     .stApp {
         background: url('https://i.ibb.co/MpbbQDx/meal-steal-bg.gif');
         background-size: cover;
         background-position: top;
-        color: #DAD7CD;
+        color: #DAD7CD; /* Light text */
+*/      color: #DAD7CD; /* Light text */ */
     }
-
-    /* ----
-    Styling for title, subheader, and other text elements
-    ---- */
+    /* Styling for the title and subheader */
     .text-container {
         text-align: center;
         margin: 50px auto;
     }
-
     .text-container img {
         width: 300px;
     }
-
-    /* ----
-    Frosted glass effect for containers (for title, tabs, pages)
-    ---- */
+    /* Applying new container styling for subheader and welcome box */
     .container {
         border: 2px solid white;
-        backdrop-filter: blur(15px);  /* Frosted glass effect */
-        background: rgba(255, 255, 255, 0.1); /* Slight white transparency for frosted look */
+        backdrop-filter: blur(20px);  /* Blur effect */
         padding: 20px;
         border-radius: 15px;
         text-align: center;
@@ -44,60 +35,57 @@ st.markdown("""
         margin: 0 auto;
         color: #DAD7CD;
     }
-
-    /* ----
-    Day boxes for meal plan (hover effect included)
-    ---- */
+    /* Box hover effect for meal plan day boxes */
+    .container {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
     .box {
-        background-color: #335D3B;  /* Dark green */
-        color: #DAD7CD;
         width: 200px;
         height: 200px;
         margin: 20px;
+        background-color: #ffffffcc;
+        background-color: #ffffff;
         cursor: pointer;
         text-align: center;
         padding: 20px;
         border-radius: 10px;
-        transition: opacity 0.6s ease, transform 0.3s ease-in-out;
-        display: inline-block;
-        justify-content: center;
-        line-height: 200px;
+        transition: opacity 0.6s ease;
     }
-
-    /* ----
-    Hover effect for day boxes
-    ---- */
     .box:hover {
-        transform: scale(1.05);
+        transform: scale(1.05);  /* Zoom on hover */
+        transition: transform 0.3s ease-in-out;
     }
-
-    /* ----
-    Centering and fade-out effect for non-hovered day boxes
-    ---- */
+    /* Apply hover effect for other boxes */
     .container:hover > :not(:hover) {
         opacity: 0.4;
     }
-
-    /* ----
-    Styling form input elements background to dark green (highlighted)
-    ---- */
+    /* Meal day box arrow effect */
+    .card .details::before {
+        content: '';
+        position: absolute;
+        left: 0px;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid #fff;
+        z-index: 1;
+    }
+    /* Form input styling */
     input, select, textarea, .stNumberInput, .stSelectbox, .stMultiselect {
-        background-color: #67944C !important;
+        background-color: #67944C !important;  /* Highlight inputs */
         color: white;
     }
-
-    /* ----
-    Custom styling for slider with no carrot (just dark green)
-    ---- */
-    .stSlider > div:first-of-type > div:first-of-type {
-        background-color: #67944C !important;
+    /* Custom Toggle Switch (dark green) */
+    .stToggle > div:first-of-type {
+        background-color: #335D3B !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# ----
-# Title Section with logo image
-# ----
+# Title Section with image
 st.markdown("""
     <div class="text-container">
         <img src="https://i.ibb.co/tmQpKH2/1-removebg-preview.png" alt="Meal Steal Logo">
@@ -107,9 +95,16 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# ----
-# 2. Sidebar User Input Form (dark green background for inputs)
-# ----
+# Welcome Box
+st.markdown('<div class="container">', unsafe_allow_html=True)
+st.markdown("""
+    Welcome to Meal Steal! This app helps you create personalized meal plans tailored to your dietary needs and health goals while finding the best grocery deals.
+""")
+st.markdown('</div>', unsafe_allow_html=True)
+
+# -------------------------
+# 2. Sidebar User Input Form
+# -------------------------
 st.sidebar.header("User Input")
 
 # User Health Information
@@ -123,18 +118,14 @@ allergies = st.sidebar.text_input("Allergies (comma-separated)", "")
 exercise_level = st.sidebar.selectbox("Exercise Level", ["Sedentary", "Lightly Active", "Active", "Very Active"])
 
 st.sidebar.markdown("### Set Meal Plan Duration")
-days = st.sidebar.slider("Meal Plan Duration (days)", 1, 7, 7)  # Slider for setting meal plan duration
+days = st.sidebar.slider("Meal Plan Duration (days)", 1, 7, 7)
 
-# ----
-# 3. Main Content - Tabs Wrapped Inside Frosted Container
-# ----
-st.markdown('<div class="container">', unsafe_allow_html=True)
-
+# -------------------------
+# 3. Main Content - Tabs with Curved Style
+# -------------------------
 tab1, tab2, tab3 = st.tabs(["Meal Plan", "Basket", "Meal Wrap"])
 
-# ----
-# Meal Plan Tab Content (with dynamic day boxes and horizontal layout)
-# ----
+# Meal Plan Tab
 with tab1:
     st.markdown("<h2 style='text-align: center;'>Your Personalized Meal Plan</h2>", unsafe_allow_html=True)
 
@@ -150,47 +141,27 @@ with tab1:
         'Day 7': ['Toast with avocado', 'Rice and beans', 'Dark chocolate', 'Grilled shrimp with veggies'],
     }
 
-    # ----
-    # Dynamic rendering of the day boxes based on slider selection
-    # ----
-    st.markdown('<div class="box-container">', unsafe_allow_html=True)
-    
-    # Display the correct number of day boxes based on slider
-    day_count = min(days, len(meal_plan))
-
-    selected_day = st.empty()  # Placeholder for selected meal details
-
-    # Create buttons for each day, revealing the meal plan on click
-    for i, (day, meals) in enumerate(meal_plan.items()):
-        if i < day_count:
-            if st.button(f"{day}"):
-                # Show meal plan for the selected day
-                selected_day.markdown(f"### {day} Meal Plan:\n- " + "\n- ".join(meals))
-
+    # Display meal plan days in a horizontal layout with clickable boxes
+    st.markdown('<div class="container">', unsafe_allow_html=True)
+    for day in meal_plan:
+        st.markdown(f"""
+            <div class="box">
+                <h3>{day}</h3>
+            </div>
+        """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ----
 # Basket Tab - Placeholder
-# ----
 with tab2:
     st.subheader("Grocery Price Optimization")
     st.write("Fill in later.")
 
-# ----
 # Meal Wrap Tab - Placeholder
-# ----
 with tab3:
     st.subheader("Meal Wrap Analysis")
     st.write("Fill in later.")
 
-# ----
-# Closing the frosted container for the tabbed content
-# ----
-st.markdown('</div>', unsafe_allow_html=True)
-
-# ----
 # Footer
-# ----
 st.markdown("""
     <footer>
         <p style="text-align: center;">© 2024 Meal Steal. All rights reserved.</p>
