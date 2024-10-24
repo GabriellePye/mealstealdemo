@@ -32,6 +32,20 @@ st.markdown("""
     width: 300px;
 }
 
+/* Flex container for logo and subheader */
+.header-container {
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    margin: 20px; /* Add some margin */
+}
+
+/* Styling for the logo */
+.header-container img { 
+    width: 150px; /* Adjust width for the logo */
+    margin-right: 20px; /* Space between logo and subheader */
+}
+
 /* styling for tabs */
 .stTabs [role='tab'] {
     border: 2px solid white;
@@ -53,17 +67,6 @@ st.markdown("""
     border-radius: 10px;  /* Rounded corners */
     color: #DAD7CD;  /* Light text color */
 }
-
-/* Container for main content */
-##.content-section {
- ##   border: 2px solid white;
- ##   backdrop-filter: blur(20px);
- ##   background: rgba(255, 255, 255, 0.1);
- ##   padding: 20px;
-##    border-radius: 10px;
-##    max-width: 80%;  /* Adjusted for centering */
-##    margin: 20px auto;  /* Centered with margin */
-##}
 
 /* Cards for meal plan */
 .card {
@@ -88,28 +91,16 @@ st.markdown("""
     transform: scale(1.05);
 }
 
-/* centering and fade-out effect for non-hovered boxes */
-.card:hover > :not(:hover) {
-    opacity: 0.4;
-}
-
 /* Sidebar styling */
 section[data-testid="stSidebar"] {
     background-color: #335D3B;
     color: #DAD7CD;
 }
 
-.box.details::before {
-    content: '';
-    position: absolute;
-    left: 0px;
-    width: 0;
-    height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent; 
-    border-left: 10px solid #fff;
-    z-index: 1;
+.stTabs [role="tabpanel"] {
+    margin-top: 20px;  /* Adjust this value to create a gap */
 }
+
 </style>
 """, unsafe_allow_html=True)
 
