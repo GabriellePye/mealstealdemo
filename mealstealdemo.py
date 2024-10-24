@@ -70,6 +70,7 @@ st.markdown("""
     display: inline-block;
     justify-content: center;
     line-height: 160px;
+    position: relative; /* Added for the arrow effect */
 }
 
 /* hover effect for meal plan boxes */
@@ -99,7 +100,6 @@ section[data-testid="stSidebar"] {
     border-left: 10px solid #fff;
     z-index: 1;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -161,14 +161,16 @@ with tab1:
     day_count = min(days, len(meal_plan))
     cols = st.columns(3)  # Create three columns
 
+    # Placeholder for displaying selected meal
+    selected_meal = st.empty() 
+
     for idx, (day, meals) in enumerate(meal_plan.items()):
         if idx < day_count:  # Only show the selected number of days
             with cols[idx % 3]:  # Distribute the days across columns
-                if st.button(day):  # Make cards clickable
-                    st.markdown(f'### {day} Meal Plan:\n- ' + '\n- '.join(meals))
-
+                if st.button(day, key=day):  # Make cards clickable
+                    selected_meal.markdown(f'### {day} Meal Plan:\n- ' + '\n- '.join(meals))
                 st.markdown(f"""
-                <div class="card">
+                <div class="card" style="cursor: pointer;" onclick="this.click();">
                     <div class="card-content">
                         <h3>{day}</h3>
                         <p>Click to see meals</p>
