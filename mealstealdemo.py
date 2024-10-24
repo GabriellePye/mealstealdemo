@@ -28,7 +28,7 @@ st.markdown("""
 
 /* Styling for the logo */
 .header-container img { 
-    width: 100px; /* Adjust width for the logo (make it smaller) */
+    width: 200px; /* Adjust width for the logo (make it smaller) */
     margin-right: 20px; /* Space between logo and subheader */
 }
 
