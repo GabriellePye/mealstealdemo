@@ -22,8 +22,7 @@ st.markdown("""
 
 /* Centering the tabs */
 .stTabs {
-    display: flex;
-    justify-content: center; /* Center the tabs */
+    justify-content: center;  /* Center the tabs */
 }
 
 /* Styling for tabs and tab content */
