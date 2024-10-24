@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 
@@ -8,7 +9,7 @@ import pandas as pd
 st.markdown("""
     <style>
     /* ----
-    Background GIF without an opaque overlay
+    Background GIF for the entire app
     ---- */
     .stApp {
         background: url('https://i.ibb.co/MpbbQDx/meal-steal-bg.gif');
@@ -30,11 +31,12 @@ st.markdown("""
     }
 
     /* ----
-    Frosted glass effect for general containers (e.g., subheader, welcome box, tabs, and pages)
+    Frosted glass effect for containers (for title, tabs, pages)
     ---- */
     .container {
         border: 2px solid white;
-        backdrop-filter: blur(20px);  /* Blur effect */
+        backdrop-filter: blur(15px);  /* Frosted glass effect */
+        background: rgba(255, 255, 255, 0.1); /* Slight white transparency for frosted look */
         padding: 20px;
         border-radius: 15px;
         text-align: center;
@@ -44,54 +46,48 @@ st.markdown("""
     }
 
     /* ----
-    Styling for meal plan day boxes to appear in rows
-    ---- */
-    .box-container {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    /* ----
-    Individual day boxes with hover effect
+    Day boxes for meal plan (hover effect included)
     ---- */
     .box {
-        background-color: #67944C;  /* Dark green */
-        color: white;
-        width: 150px;
-        height: 150px;
+        background-color: #335D3B;  /* Dark green */
+        color: #DAD7CD;
+        width: 200px;
+        height: 200px;
         margin: 20px;
         cursor: pointer;
         text-align: center;
         padding: 20px;
         border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         transition: opacity 0.6s ease, transform 0.3s ease-in-out;
-    }
-
-    .box:hover {
-        transform: scale(1.05);  /* Zoom on hover */
+        display: inline-block;
+        justify-content: center;
+        line-height: 200px;
     }
 
     /* ----
-    Hover effect to dim non-hovered boxes
+    Hover effect for day boxes
     ---- */
-    .box-container:hover > :not(:hover) {
+    .box:hover {
+        transform: scale(1.05);
+    }
+
+    /* ----
+    Centering and fade-out effect for non-hovered day boxes
+    ---- */
+    .container:hover > :not(:hover) {
         opacity: 0.4;
     }
 
     /* ----
-    Styling for form input elements (dark green background)
+    Styling form input elements background to dark green (highlighted)
     ---- */
     input, select, textarea, .stNumberInput, .stSelectbox, .stMultiselect {
-        background-color: #67944C !important;  /* Highlight inputs */
+        background-color: #67944C !important;
         color: white;
     }
 
     /* ----
-    Slider Handle Color (no carrot image, just dark green)
+    Custom styling for slider with no carrot (just dark green)
     ---- */
     .stSlider > div:first-of-type > div:first-of-type {
         background-color: #67944C !important;
@@ -112,7 +108,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ----
-# 2. Sidebar User Input Form (with dark green background for input fields)
+# 2. Sidebar User Input Form (dark green background for inputs)
 # ----
 st.sidebar.header("User Input")
 
@@ -132,9 +128,6 @@ days = st.sidebar.slider("Meal Plan Duration (days)", 1, 7, 7)  # Slider for set
 # ----
 # 3. Main Content - Tabs Wrapped Inside Frosted Container
 # ----
-# ----
-# This is for the container around the tabs and their content
-# ----
 st.markdown('<div class="container">', unsafe_allow_html=True)
 
 tab1, tab2, tab3 = st.tabs(["Meal Plan", "Basket", "Meal Wrap"])
@@ -146,6 +139,7 @@ with tab1:
     st.markdown("<h2 style='text-align: center;'>Your Personalized Meal Plan</h2>", unsafe_allow_html=True)
 
     # Sample meal plan (mock data)
+    meals = ['Breakfast', 'Lunch', 'Snack', 'Dinner']
     meal_plan = {
         'Day 1': ['Oatmeal with fruit', 'Grilled chicken salad', 'Apple', 'Quinoa with veggies'],
         'Day 2': ['Greek yogurt with honey', 'Turkey sandwich', 'Carrot sticks', 'Salmon with rice'],
@@ -161,17 +155,18 @@ with tab1:
     # ----
     st.markdown('<div class="box-container">', unsafe_allow_html=True)
     
-    # Initialize a variable to capture the clicked day
-    selected_day = st.empty()
+    # Display the correct number of day boxes based on slider
+    day_count = min(days, len(meal_plan))
 
-    day_count = min(days, len(meal_plan))  # Adjust box count based on user slider input
+    selected_day = st.empty()  # Placeholder for selected meal details
 
-    # Create a button for each day that reveals the meal plan on click
+    # Create buttons for each day, revealing the meal plan on click
     for i, (day, meals) in enumerate(meal_plan.items()):
-        if i < day_count:  # Show only the number of boxes based on slider
-            if st.button(day):  # Button click event to show meal plan
-                selected_day.markdown(f"### {day} Meal Plan: \n- " + "\n- ".join(meals))
-    
+        if i < day_count:
+            if st.button(f"{day}"):
+                # Show meal plan for the selected day
+                selected_day.markdown(f"### {day} Meal Plan:\n- " + "\n- ".join(meals))
+
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ----
