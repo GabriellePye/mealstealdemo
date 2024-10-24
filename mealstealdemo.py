@@ -20,11 +20,6 @@ st.markdown("""
     text-align: center;
 }
 
-/* Centering the tabs */
-.stTabs {
-    justify-content: center;  /* Center the tabs */
-}
-
 /* Styling for tabs and tab content */
 .stTabs [role="tab"] {
     background-color: rgba(51, 93, 59, 0.8);  /* Dark green with 80% opacity */
