@@ -20,6 +20,12 @@ st.markdown("""
     text-align: center;
 }
 
+/* Centering the tabs */
+.stTabs {
+    display: flex;
+    justify-content: center; /* Center the tabs */
+}
+
 /* Styling for tabs and tab content */
 .stTabs [role="tab"] {
     background-color: rgba(51, 93, 59, 0.8);  /* Dark green with 80% opacity */
@@ -33,16 +39,16 @@ st.markdown("""
     color: #DAD7CD;  /* Light text */
     border-radius: 10px;
     padding: 20px; /* Padding inside tab content */
-} ##-- this is the bg of pages 
+}
 
-##/* Container for the main content */
-##.content-section {
-##    background-color: rgba(255, 255, 255, 0.8);  /* Light background for readability */
-##    border-radius: 10px;
-##    padding: 20px;
-##    max-width: 80%;
-##    margin: 20px auto; /* Center the container */
-##}
+/* Container for the main content */
+.content-section {
+    background-color: rgba(255, 255, 255, 0.8);  /* Light background for readability */
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 80%;
+    margin: 20px auto; /* Center the container */
+}
 
 /* Card styling */
 .card {
