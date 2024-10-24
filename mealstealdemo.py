@@ -66,6 +66,18 @@ st.markdown("""
     color: #DAD7CD;  /* Light text color */
 }
 
+/* Center the tabs */
+.stTabs {
+    display: flex;               /* Use flexbox */
+    justify-content: center;     /* Center the tabs horizontally */
+    margin: 20px 0;             /* Add vertical margin if needed */
+}
+
+.stTabs [role='tab'] {
+    margin: 0 10px;             /* Adjust horizontal spacing between tabs */
+}
+
+
 /* Cards for meal plan */
 .card {
     background-color: #335D3B;
