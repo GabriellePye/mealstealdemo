@@ -32,17 +32,17 @@ st.markdown("""
     width: 300px;
 }
 
-/* styling for tabs */
-.stTabs [role='tab'] {
-    border: 2px solid white;
-    backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    max-width: 80px;
-    margin: 0 5px;
-}
+##/* styling for tabs */
+##.stTabs [role='tab'] {
+ ##   border: 2px solid white;
+   ## backdrop-filter: blur(20px);
+ ##   background: rgba(255, 255, 255, 0.1);
+   ## padding: 20px;
+ ##   border-radius: 10px;
+ ##   text-align: center;
+ ##   max-width: 80px;
+ ##   margin: 0 5px;
+##}
 
 /* Tab panel styling to have a frosted effect */
 .stTabs [role="tabpanel"] {
