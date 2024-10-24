@@ -48,10 +48,6 @@ st.markdown("""
         color: #DAD7CD;
     }
 
-    /* Slider handle color */
-    .stSlider > div:first-of-type > div:first-of-type {
-        background-color: #67944C !important;
-    }
     </style>
 """, unsafe_allow_html=True)
 
