@@ -44,13 +44,6 @@ st.markdown("""
     margin: 0; /* Remove automatic margins */
 }
 
-/* Center the tabs */
-.stTabs {
-    display: flex;               /* Use flexbox */
-    justify-content: center;     /* Center the tabs horizontally */
-    margin: 20px 0;             /* Add vertical margin if needed */
-}
-
 /* Styling for tabs */
 .stTabs [role='tab'] {
     border: 2px solid white;
@@ -60,7 +53,7 @@ st.markdown("""
     border-radius: 10px;
     text-align: center;
     max-width: 80px;
-    margin: 0 10px;             /* Adjust horizontal spacing between tabs */
+    margin: 0 8px;             /* Adjust horizontal spacing between tabs */
 }
 
 /* Tab panel styling to have a frosted effect */
