@@ -44,48 +44,50 @@ st.markdown("""
     }
 
     /* ----
-    Boxes for meal plan days (hover effect included)
+    Styling for meal plan day boxes to appear in rows
+    ---- */
+    .box-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* ----
+    Individual day boxes with hover effect
     ---- */
     .box {
         background-color: #67944C;  /* Dark green */
         color: white;
-        width: 200px;
-        height: 200px;
+        width: 150px;
+        height: 150px;
         margin: 20px;
         cursor: pointer;
         text-align: center;
         padding: 20px;
         border-radius: 10px;
-        transition: opacity 0.6s ease, transform 0.3s ease-in-out;
-        display: inline-block;
+        display: flex;
+        align-items: center;
         justify-content: center;
+        transition: opacity 0.6s ease, transform 0.3s ease-in-out;
     }
 
-    /* ----
-    Centering and hover effect for day boxes
-    ---- */
     .box:hover {
         transform: scale(1.05);  /* Zoom on hover */
     }
 
-    /* Apply hover effect for meal day boxes */
-    .container:hover > :not(:hover) {
+    /* ----
+    Hover effect to dim non-hovered boxes
+    ---- */
+    .box-container:hover > :not(:hover) {
         opacity: 0.4;
     }
 
     /* ----
-    Adjusting form input elements background to dark green (highlighted)
+    Styling for form input elements (dark green background)
     ---- */
     input, select, textarea, .stNumberInput, .stSelectbox, .stMultiselect {
         background-color: #67944C !important;  /* Highlight inputs */
         color: white;
-    }
-
-    /* ----
-    Custom Toggle Switch (dark green) 
-    ---- */
-    .stToggle > div:first-of-type {
-        background-color: #335D3B !important;
     }
 
     /* ----
@@ -144,7 +146,6 @@ with tab1:
     st.markdown("<h2 style='text-align: center;'>Your Personalized Meal Plan</h2>", unsafe_allow_html=True)
 
     # Sample meal plan (mock data)
-    meals = ['Breakfast', 'Lunch', 'Snack', 'Dinner']
     meal_plan = {
         'Day 1': ['Oatmeal with fruit', 'Grilled chicken salad', 'Apple', 'Quinoa with veggies'],
         'Day 2': ['Greek yogurt with honey', 'Turkey sandwich', 'Carrot sticks', 'Salmon with rice'],
@@ -158,16 +159,18 @@ with tab1:
     # ----
     # Dynamic rendering of the day boxes based on slider selection
     # ----
-    st.markdown('<div class="container">', unsafe_allow_html=True)
+    st.markdown('<div class="box-container">', unsafe_allow_html=True)
     
+    # Initialize a variable to capture the clicked day
+    selected_day = st.empty()
+
     day_count = min(days, len(meal_plan))  # Adjust box count based on user slider input
 
-    for day in list(meal_plan.keys())[:day_count]:
-        st.markdown(f"""
-            <div class="box">
-                <h3>{day}</h3>
-            </div>
-        """, unsafe_allow_html=True)
+    # Create a button for each day that reveals the meal plan on click
+    for i, (day, meals) in enumerate(meal_plan.items()):
+        if i < day_count:  # Show only the number of boxes based on slider
+            if st.button(day):  # Button click event to show meal plan
+                selected_day.markdown(f"### {day} Meal Plan: \n- " + "\n- ".join(meals))
     
     st.markdown('</div>', unsafe_allow_html=True)
 
