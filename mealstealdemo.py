@@ -1,9 +1,9 @@
 import streamlit as st
 
-# CSS for styling the layout
+# CSS for full-page layout
 st.markdown("""
 <style>
-    /* Background */
+    /* Full height for the app */
     .stApp {
         background: url('https://i.ibb.co/MpbbQDx/meal-steal-bg.gif');
         background-size: cover; 
@@ -17,7 +17,7 @@ st.markdown("""
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 20px;
+        margin: 20px 0; /* Add some margin */
     }
 
     .header-container img {
@@ -29,7 +29,7 @@ st.markdown("""
     .card {
         background-color: rgba(51, 93, 59, 0.8);
         color: #DAD7CD;
-        width: 100%;
+        width: 100%; /* Make the cards full width */
         height: 160px;
         margin: 20px 0; /* Space between cards */
         cursor: pointer;
@@ -53,8 +53,9 @@ st.markdown("""
         backdrop-filter: blur(20px);
         background: rgba(255, 255, 255, 0.1);
         color: #DAD7CD;
+        height: calc(100vh - 160px); /* Fill remaining height */
+        overflow-y: auto; /* Enable scrolling */
     }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -79,7 +80,7 @@ meal_plan = {
 st.title("Meal Plans")
 selected_day = None
 
-# Create a full-width container for the meal plan cards
+# Create meal plan buttons
 for day in meal_plan.keys():
     if st.button(day, key=day):
         selected_day = day  # Update selected day when button is clicked
@@ -93,3 +94,4 @@ if selected_day:
 else:
     st.write("Click on a meal plan to view details here.")
 st.markdown('</div>', unsafe_allow_html=True)
+
