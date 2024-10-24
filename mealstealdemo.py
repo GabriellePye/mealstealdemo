@@ -28,12 +28,12 @@ st.markdown("""
     margin: 0 5px;  /* Space between tabs */
 }
 
-.stTabs [role="tabpanel"] {
-    background-color: rgba(51, 93, 59, 0.8);  /* Dark green with 80% opacity */
-    color: #DAD7CD;  /* Light text */
-    border-radius: 10px;
-    padding: 20px; /* Padding inside tab content */
-}
+##.stTabs [role="tabpanel"] {
+##    background-color: rgba(51, 93, 59, 0.8);  /* Dark green with 80% opacity */
+ ##   color: #DAD7CD;  /* Light text */
+ ##   border-radius: 10px;
+ ##   padding: 20px; /* Padding inside tab content */
+##}
 
 /* Container for the main content */
 .content-section {
