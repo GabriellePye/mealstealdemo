@@ -7,6 +7,7 @@ import streamlit as st
 # Custom CSS for styling
 st.markdown("""
     <style> 
+    /* App Background */
     .stApp {
         background: url('https://i.ibb.co/MpbbQDx/meal-steal-bg.gif'); /* Replace with your GIF URL */
         background-size: cover; 
@@ -32,7 +33,7 @@ st.markdown("""
         margin-top: 20px;
     }
 
-   /* Styling for the individual tabs */
+    /* Styling for the individual tabs */
     .stTabs [role='tablist'] .stTab {
         background-color: #2E8B57; /* Background for each tab */
         border-radius: 10px; /* Rounded corners */
@@ -51,14 +52,17 @@ st.markdown("""
         color: white;
     }
 
-    /* Tab content pages with a solid background */
+    /* Tab content pages with a full solid background */
     .tab-content {
-        background-color: #ffffff; /* White solid background */
+        background-color: rgba(255, 255, 255, 0.9); /* White solid background */
         padding: 20px;
-        border-radius: 10px;
+        border-radius: 15px; /* Rounded corners */
         margin-top: 20px;
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
     }
-    
+
     </style>
 """, unsafe_allow_html=True)
 
@@ -82,6 +86,7 @@ st.markdown("""
 # Creating tabs for different sections
 tab1, tab2, tab3, tab4 = st.tabs(['Meal Plan', 'Recipes', 'Ingredients', 'Meal Wrap'])
 
+# Apply individual backgrounds to the tabs' content
 with tab1:
     st.markdown("<div class='tab-content'><h3>Your Personalized Meal Plan</h3></div>", unsafe_allow_html=True)
     st.write("Content for the meal plan goes here...")
