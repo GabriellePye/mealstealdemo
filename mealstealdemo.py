@@ -32,7 +32,7 @@ st.markdown("""
     width: 300px;
 }
 
-/* styling for tabs + tab content */
+/* styling for tabs */
 .stTabs [role='tab'] {
     border: 2px solid white;
     backdrop-filter: blur(20px);
@@ -42,6 +42,16 @@ st.markdown("""
     text-align: center;
     max-width: 80px;
     margin: 0 5px;
+}
+
+/* Tab panel styling to have a frosted effect */
+.stTabs [role="tabpanel"] {
+    border: 2px solid white;
+    backdrop-filter: blur(20px);  /* Frosted effect */
+    background: rgba(255, 255, 255, 0.1);  /* Background with slight opacity */
+    padding: 20px;  /* Padding for content */
+    border-radius: 10px;  /* Rounded corners */
+    color: #DAD7CD;  /* Light text color */
 }
 
 /* Container for main content */
