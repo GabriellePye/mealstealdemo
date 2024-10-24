@@ -32,11 +32,23 @@ st.markdown("""
         margin-top: 20px;
     }
 
-    /* Styling for the tabs - each with a solid background */
-    .stTabs > div > div {
-        background-color: #2E8B57; /* Solid color for the tab background */
+   /* Styling for the individual tabs */
+    .stTabs [role='tablist'] .stTab {
+        background-color: #2E8B57; /* Background for each tab */
+        border-radius: 10px; /* Rounded corners */
         padding: 10px;
-        border-radius: 10px;
+        margin: 0 5px;
+    }
+
+    /* Hover effect for tabs */
+    .stTabs [role='tablist'] .stTab:hover {
+        background-color: #67944C; /* Hover color */
+    }
+
+    /* Active tab style */
+    .stTabs [role='tablist'] .stTab[aria-selected="true"] {
+        background-color: #4CAF50; /* Active tab color */
+        color: white;
     }
 
     /* Tab content pages with a solid background */
