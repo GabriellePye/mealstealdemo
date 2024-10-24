@@ -109,11 +109,6 @@ st.markdown("""
 # Main content section
 st.markdown('<div class="content-section">', unsafe_allow_html=True)
 
-# App description
-st.markdown("""
-    Welcome to Meal Steal! This app helps you create personalized meal plans tailored to your dietary needs and health goals while finding the best grocery deals.
-""")
-
 # -------------------------
 # 2. Sidebar User Input Form
 # -------------------------
