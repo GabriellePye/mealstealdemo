@@ -2,10 +2,10 @@ import streamlit as st
 import pandas as pd
 
 # -------------------------
-# 1. App Background, Containers, and Styling
+# 1. Background, Containers, and Styling
 # -------------------------
 
-# Applying custom CSS for styling
+# Applying custom CSS for the app
 st.markdown("""
     <style> 
     .stApp {
@@ -14,7 +14,7 @@ st.markdown("""
         background-position: top;
     }
 
-    /* Styling for title, subheader, and other text elements */
+    /* Styling for subheader and other text elements */
     .text-container {
         text-align: center;
         margin: 50px auto;
@@ -24,8 +24,8 @@ st.markdown("""
         width: 300px;
     }
 
-    /* Frosted glass effect for containers */
-    .container {
+    /* Frosted glass effect for the main container */
+    .container, .tab-container, .tab-pages-container {
         border: 2px solid white;
         backdrop-filter: blur(20px);
         background: rgba(255, 255, 255, 0.1);
@@ -33,28 +33,13 @@ st.markdown("""
         border-radius: 15px;
         text-align: center;
         max-width: 80%;
-        margin: 0 auto;
+        margin: 20px auto;
     }
 
-    /* Boxes for meal plan days */
-    .box {
-        background-color: #335D3B;
-        color: #DAD7CD;
-        width: 160px;
-        height: 160px;
-        margin: 20px;
-        cursor: pointer;
-        text-align: center;
-        padding: 20px;
-        border-radius: 10px;
-        transition: opacity 0.6s ease, transform 0.3s ease-in-out;
-        display: inline-block;
-        line-height: 160px;
-    }
-
-    /* Hover effect for meal plan boxes */
-    .box:hover {
-        transform: scale(1.05);
+    /* Tabs center alignment */
+    .block-container {
+        display: flex;
+        justify-content: center;
     }
 
     /* Sidebar styling */
@@ -104,12 +89,13 @@ st.sidebar.markdown('### Set Meal Plan Duration')
 days = st.sidebar.slider('Meal Plan Duration (days)', 1, 7, 7)
 
 # -------------------------
-# 4. Tabs Section
+# 4. Centered Tabs Section with Individual Tab Background
 # -------------------------
 
 # Container for the tabs and their content
-st.markdown('<div class="container">', unsafe_allow_html=True)
+st.markdown('<div class="tab-container">', unsafe_allow_html=True)
 
+# Tabs placed in the center
 tab1, tab2, tab3, tab4 = st.tabs(['Meal Plan', 'Recipes', 'Ingredients', 'Meal Wrap'])
 
 # -------------------------
@@ -117,7 +103,10 @@ tab1, tab2, tab3, tab4 = st.tabs(['Meal Plan', 'Recipes', 'Ingredients', 'Meal W
 # -------------------------
 
 with tab1:
-    st.markdown("<h2 style='text-align: center;'>Your Personalized Meal Plan</h2>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class="tab-pages-container">
+        <h2>Your Personalized Meal Plan</h2>
+    """, unsafe_allow_html=True)
 
     # Sample meal plan (mock data)
     meal_plan = {
@@ -142,35 +131,49 @@ with tab1:
                 # Display meal plan for selected day
                 selected_day.markdown(f"### {day} Meal Plan:\n- " + "\n- ".join(meal_plan[day]))
 
+    st.markdown("</div>", unsafe_allow_html=True)  # Close the tab container
+
 # -------------------------
 # 6. Recipes Tab (Placeholder)
 # -------------------------
 
 with tab2:
-    st.subheader('Recipes')
-    st.write('Recipes will be filled in later.')
+    st.markdown("""
+    <div class="tab-pages-container">
+        <h2>Recipes</h2>
+        <p>Recipes will be filled in later.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # -------------------------
 # 7. Ingredients Tab (Placeholder)
 # -------------------------
 
 with tab3:
-    st.subheader('Ingredients')
-    st.write('This will also include the grocery basket.')
+    st.markdown("""
+    <div class="tab-pages-container">
+        <h2>Ingredients</h2>
+        <p>This will also include the grocery basket.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # -------------------------
 # 8. Meal Wrap Tab (Placeholder)
 # -------------------------
 
 with tab4:
-    st.subheader('Meal Wrap - Your Meal Plan Stats')
-    st.write('Visualize and analyze your meal plan stats here.')
+    st.markdown("""
+    <div class="tab-pages-container">
+        <h2>Meal Wrap - Your Meal Plan Stats</h2>
+        <p>Visualize and analyze your meal plan stats here.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # -------------------------
-# 9. Close Container for Tabs Section
+# 9. Close Tabs Container
 # -------------------------
 
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)  # Close the main tab container
 
 # -------------------------
 # 10. Footer
