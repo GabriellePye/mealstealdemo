@@ -44,7 +44,14 @@ st.markdown("""
     margin: 0; /* Remove automatic margins */
 }
 
-/* styling for tabs */
+/* Center the tabs */
+.stTabs {
+    display: flex;               /* Use flexbox */
+    justify-content: center;     /* Center the tabs horizontally */
+    margin: 20px 0;             /* Add vertical margin if needed */
+}
+
+/* Styling for tabs */
 .stTabs [role='tab'] {
     border: 2px solid white;
     backdrop-filter: blur(20px);
@@ -53,7 +60,7 @@ st.markdown("""
     border-radius: 10px;
     text-align: center;
     max-width: 80px;
-    margin: 0 5px;
+    margin: 0 10px;             /* Adjust horizontal spacing between tabs */
 }
 
 /* Tab panel styling to have a frosted effect */
@@ -66,16 +73,6 @@ st.markdown("""
     color: #DAD7CD;  /* Light text color */
 }
 
-/* Center the tabs */
-.stTabs {
-    display: flex;               /* Use flexbox */
-    justify-content: center;     /* Center the tabs horizontally */
-    margin: 20px 0;             /* Add vertical margin if needed */
-}
-
-.stTabs [role='tab'] {
-    margin: 0 10px;             /* Adjust horizontal spacing between tabs */
-}
 
 
 /* Cards for meal plan */
