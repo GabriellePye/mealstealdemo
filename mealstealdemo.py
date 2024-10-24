@@ -24,22 +24,41 @@ st.markdown("""
         width: 300px;
     }
 
-    /* Frosted glass effect for the main container */
-    .container, .tab-container, .tab-pages-container {
+    /* Individual frosted glass box for each tab */
+    .tab-box {
         border: 2px solid white;
         backdrop-filter: blur(20px);
         background: rgba(255, 255, 255, 0.1);
         padding: 20px;
         border-radius: 15px;
         text-align: center;
-        max-width: 80%;
-        margin: 20px auto;
+        max-width: 300px;
+        margin: 10px;
+        display: inline-block;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Hover effect for tab boxes */
+    .tab-box:hover {
+        transform: scale(1.05);
     }
 
     /* Tabs center alignment */
     .block-container {
         display: flex;
         justify-content: center;
+        align-items: center;
+    }
+
+    /* Frosted glass effect for the main tab content (pages) */
+    .tab-content-container {
+        border: 2px solid white;
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 15px;
+        max-width: 80%;
+        margin: 20px auto;
     }
 
     /* Sidebar styling */
@@ -48,6 +67,10 @@ st.markdown("""
         color: #DAD7CD;
     }
 
+    /* Slider handle color */
+    .stSlider > div:first-of-type > div:first-of-type {
+        background-color: #67944C !important;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -58,7 +81,7 @@ st.markdown("""
 st.markdown("""
     <div class='text-container'>
         <img src="https://i.ibb.co/tmQpKH2/1-removebg-preview.png" alt="Meal Steal Logo">
-        <div class='container'>
+        <div>
             <h2>Get Fit, Eat Smart, Spend Less</h2>
         </div>
     </div>
@@ -85,94 +108,96 @@ st.sidebar.markdown('### Set Meal Plan Duration')
 days = st.sidebar.slider('Meal Plan Duration (days)', 1, 7, 7)
 
 # -------------------------
-# 4. Centered Tabs Section with Individual Tab Background
+# 4. Centered Tabs Section with Each Tab in a Box
 # -------------------------
 
-# Container for the tabs and their content
-st.markdown('<div class="tab-container">', unsafe_allow_html=True)
+# Tabs in the center, each styled as a frosted box
+st.markdown('<div class="block-container">', unsafe_allow_html=True)
 
-# Tabs placed in the center
-tab1, tab2, tab3, tab4 = st.tabs(['Meal Plan', 'Recipes', 'Ingredients', 'Meal Wrap'])
+# Create custom buttons styled as tab boxes
+tab1_clicked = st.button("Meal Plan", key='tab1')
+tab2_clicked = st.button("Recipes", key='tab2')
+tab3_clicked = st.button("Ingredients", key='tab3')
+tab4_clicked = st.button("Meal Wrap", key='tab4')
 
-# -------------------------
-# 5. Meal Plan Tab
-# -------------------------
+st.markdown('</div>', unsafe_allow_html=True)
 
-with tab1:
-    st.markdown("""
-    <div class="tab-pages-container">
-        <h2>Your Personalized Meal Plan</h2>
-    """, unsafe_allow_html=True)
-
-    # Sample meal plan (mock data)
-    meal_plan = {
-        'Day 1': ['Oatmeal with fruit', 'Grilled chicken salad', 'Apple', 'Quinoa with veggies'],
-        'Day 2': ['Greek yogurt with honey', 'Turkey sandwich', 'Carrot sticks', 'Salmon with rice'],
-        'Day 3': ['Smoothie', 'Pasta with tomato sauce', 'Nuts', 'Stir-fried tofu with broccoli'],
-        'Day 4': ['Eggs and toast', 'Chickpea salad', 'Granola bar', 'Beef stir-fry'],
-        'Day 5': ['Pancakes', 'Veggie wrap', 'Yogurt', 'Baked chicken with potatoes'],
-        'Day 6': ['Cereal with milk', 'Quinoa salad', 'Fruit', 'Fish tacos'],
-        'Day 7': ['Toast with avocado', 'Rice and beans', 'Dark chocolate', 'Grilled shrimp with veggies'],
-    }
-
-    # Dynamic rendering of meal plan boxes based on slider selection
-    day_count = min(days, len(meal_plan))  # Adjust box count based on user slider input
-    cols = st.columns(3)  # Create a 3-column layout for meal plan boxes
-
-    selected_day = st.empty()  # Placeholder for selected day’s meal details
-
-    for idx, day in enumerate(list(meal_plan.keys())[:day_count]):
-        with cols[idx % 3]:  # Place in the right column
-            if st.button(day):
-                # Display meal plan for selected day
-                selected_day.markdown(f"### {day} Meal Plan:\n- " + "\n- ".join(meal_plan[day]))
-
-    st.markdown("</div>", unsafe_allow_html=True)  # Close the tab container
+# Determine which tab is clicked
+active_tab = None
+if tab1_clicked:
+    active_tab = 'tab1'
+elif tab2_clicked:
+    active_tab = 'tab2'
+elif tab3_clicked:
+    active_tab = 'tab3'
+elif tab4_clicked:
+    active_tab = 'tab4'
 
 # -------------------------
-# 6. Recipes Tab (Placeholder)
+# 5. Display Tab Content in a Frosted Glass Box
 # -------------------------
 
-with tab2:
-    st.markdown("""
-    <div class="tab-pages-container">
-        <h2>Recipes</h2>
-        <p>Recipes will be filled in later.</p>
-    </div>
-    """, unsafe_allow_html=True)
+if active_tab == 'tab1':
+    with st.container():
+        st.markdown("""
+        <div class="tab-content-container">
+            <h2>Your Personalized Meal Plan</h2>
+        """, unsafe_allow_html=True)
+
+        # Sample meal plan (mock data)
+        meal_plan = {
+            'Day 1': ['Oatmeal with fruit', 'Grilled chicken salad', 'Apple', 'Quinoa with veggies'],
+            'Day 2': ['Greek yogurt with honey', 'Turkey sandwich', 'Carrot sticks', 'Salmon with rice'],
+            'Day 3': ['Smoothie', 'Pasta with tomato sauce', 'Nuts', 'Stir-fried tofu with broccoli'],
+            'Day 4': ['Eggs and toast', 'Chickpea salad', 'Granola bar', 'Beef stir-fry'],
+            'Day 5': ['Pancakes', 'Veggie wrap', 'Yogurt', 'Baked chicken with potatoes'],
+            'Day 6': ['Cereal with milk', 'Quinoa salad', 'Fruit', 'Fish tacos'],
+            'Day 7': ['Toast with avocado', 'Rice and beans', 'Dark chocolate', 'Grilled shrimp with veggies'],
+        }
+
+        # Dynamic rendering of meal plan boxes based on slider selection
+        day_count = min(days, len(meal_plan))  # Adjust box count based on user slider input
+        cols = st.columns(3)  # Create a 3-column layout for meal plan boxes
+
+        selected_day = st.empty()  # Placeholder for selected day’s meal details
+
+        for idx, day in enumerate(list(meal_plan.keys())[:day_count]):
+            with cols[idx % 3]:  # Place in the right column
+                if st.button(day, key=day):
+                    # Display meal plan for selected day
+                    selected_day.markdown(f"### {day} Meal Plan:\n- " + "\n- ".join(meal_plan[day]))
+
+        st.markdown("</div>", unsafe_allow_html=True)  # Close the tab content container
+
+elif active_tab == 'tab2':
+    with st.container():
+        st.markdown("""
+        <div class="tab-content-container">
+            <h2>Recipes</h2>
+            <p>Recipes will be filled in later.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+elif active_tab == 'tab3':
+    with st.container():
+        st.markdown("""
+        <div class="tab-content-container">
+            <h2>Ingredients</h2>
+            <p>This will also include the grocery basket.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+elif active_tab == 'tab4':
+    with st.container():
+        st.markdown("""
+        <div class="tab-content-container">
+            <h2>Meal Wrap - Your Meal Plan Stats</h2>
+            <p>Visualize and analyze your meal plan stats here.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 # -------------------------
-# 7. Ingredients Tab (Placeholder)
-# -------------------------
-
-with tab3:
-    st.markdown("""
-    <div class="tab-pages-container">
-        <h2>Ingredients</h2>
-        <p>This will also include the grocery basket.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-# -------------------------
-# 8. Meal Wrap Tab (Placeholder)
-# -------------------------
-
-with tab4:
-    st.markdown("""
-    <div class="tab-pages-container">
-        <h2>Meal Wrap - Your Meal Plan Stats</h2>
-        <p>Visualize and analyze your meal plan stats here.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-# -------------------------
-# 9. Close Tabs Container
-# -------------------------
-
-st.markdown('</div>', unsafe_allow_html=True)  # Close the main tab container
-
-# -------------------------
-# 10. Footer
+# 6. Footer
 # -------------------------
 
 st.markdown("""
