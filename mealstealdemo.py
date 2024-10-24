@@ -39,12 +39,6 @@ st.markdown("""
         color: #DAD7CD;
     }
 
-    /* Styling for the rest of the page (section below the title) */
-    .content-section {
-        background-color: #67944C; /* Main body background */
-        padding: 30px;
-        border-radius: 20px;
-    }
 
     /* Styling for tabs and cards */
     .stTabs [role="tab"] {
