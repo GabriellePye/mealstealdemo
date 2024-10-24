@@ -181,8 +181,7 @@ with tab1:
 
     # Sample meal plan (mock data)
     meals = ['Breakfast', 'Lunch', 'Snack', 'Dinner']
-
-        'Day 7': ['Toast with avocado', 'Rice and beans', 'Dark chocolate', 'Grilled shrimp with veggies'],
+    'Day 7': ['Toast with avocado', 'Rice and beans', 'Dark chocolate', 'Grilled shrimp with veggies'],
     }
 
     # Meal Plan Day Boxes (horizontal or grid layout)
