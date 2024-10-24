@@ -1,96 +1,118 @@
 import streamlit as st
 
-# CSS for full-page layout
+# CSS for card styling
 st.markdown("""
 <style>
-    /* Full height for the app */
-    .stApp {
-        background: url('https://i.ibb.co/MpbbQDx/meal-steal-bg.gif');
-        background-size: cover; 
-        background-position: center;
-        height: 100vh; /* Full viewport height */
-        color: #DAD7CD; /* Set text color */
-    }
+/* Cards for meal plan */
+.card {
+    position: relative;
+    width: 220px; /* Adjust width as needed */
+    height: 320px; /* Adjust height as needed */
+    background: mediumturquoise;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.5s; /* Smooth transitions */
+}
 
-    /* Header styling */
-    .header-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 20px 0; /* Add some margin */
-    }
+/* Styling for card hover effects */
+.card::before,
+.card::after {
+    position: absolute;
+    content: "";
+    width: 20%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
+    background-color: lightblue;
+    transition: all 0.5s; /* Smooth transitions */
+}
 
-    .header-container img {
-        width: 100px; /* Adjust size */
-        margin-right: 20px; /* Space between logo and subheader */
-    }
+.card::before {
+    top: 0;
+    right: 0;
+    border-radius: 0 15px 0 100%; /* Top right corner rounded */
+}
 
-    /* Meal Plan Cards */
-    .card {
-        background-color: rgba(51, 93, 59, 0.8);
-        color: #DAD7CD;
-        width: 100%; /* Make the cards full width */
-        height: 160px;
-        margin: 20px 0; /* Space between cards */
-        cursor: pointer;
-        text-align: center;
-        padding: 20px;
-        border-radius: 10px;
-        transition: transform 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.card::after {
+    bottom: 0;
+    left: 0;
+    border-radius: 0 100% 0 15px; /* Bottom left corner rounded */
+}
 
-    .card:hover {
-        transform: scale(1.05);
-    }
+/* Hover effects for cards */
+.card:hover::before,
+.card:hover::after {
+    width: 100%; /* Expand on hover */
+    height: 100%; /* Expand on hover */
+    border-radius: 15px; /* Rounded corners on hover */
+}
 
-    /* Meal Plan Section */
-    .meal-plan-section {
-        padding: 20px;
-        border-radius: 10px;
-        backdrop-filter: blur(20px);
-        background: rgba(255, 255, 255, 0.1);
-        color: #DAD7CD;
-        height: calc(100vh - 160px); /* Fill remaining height */
-        overflow-y: auto; /* Enable scrolling */
-    }
+.card:hover:after {
+    content: "Meal Plan"; /* Show meal plan text on hover */
+    color: #fff; /* Text color for visibility */
+}
+
+/* General styles for meal plan section */
+.meal-plan-section {
+    margin-top: 20px; /* Space above meal plan section */
+    padding: 20px; /* Padding for content */
+    border-radius: 10px; /* Rounded corners */
+    backdrop-filter: blur(20px); /* Frosted effect */
+    background: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+    color: #DAD7CD; /* Light text color */
+}
 </style>
 """, unsafe_allow_html=True)
 
-# Header with logo and subheader
-st.markdown("""
-<div class="header-container">
-    <img src="https://i.ibb.co/tmQpKH2/1-removebg-preview.png" alt="Meal Steal Logo">
-    <h2>Get Fit, Eat Smart, Spend Less</h2>
-</div>
-""", unsafe_allow_html=True)
-
-# Sample meal plan data
+# Sample meal plan with mock data
 meal_plan = {
     'Day 1': ['Oatmeal with fruit', 'Grilled chicken salad', 'Apple', 'Quinoa with veggies'],
     'Day 2': ['Greek yogurt with honey', 'Turkey sandwich', 'Carrot sticks', 'Salmon with rice'],
     'Day 3': ['Smoothie', 'Pasta with tomato sauce', 'Nuts', 'Stir-fried tofu with broccoli'],
     'Day 4': ['Eggs and toast', 'Chickpea salad', 'Granola bar', 'Beef stir-fry'],
     'Day 5': ['Pancakes', 'Veggie wrap', 'Yogurt', 'Baked chicken with potatoes'],
+    'Day 6': ['Cereal with milk', 'Quinoa salad', 'Fruit', 'Fish tacos'],
+    'Day 7': ['Toast with avocado', 'Rice and beans', 'Dark chocolate', 'Grilled shrimp with veggies'],
 }
 
-# Main layout
-st.title("Meal Plans")
-selected_day = None
+# Create header
+st.markdown('<h2 style="text-align: center;">Your Personalized Meal Plan</h2>', unsafe_allow_html=True)
 
-# Create meal plan buttons
-for day in meal_plan.keys():
-    if st.button(day, key=day):
-        selected_day = day  # Update selected day when button is clicked
+# Render cards for meal plans
+day_count = len(meal_plan)  # Show all days, or you can limit this with a variable
+cols = st.columns(3)  # Create three columns
+
+# Placeholder for displaying selected meal
+selected_meal = st.empty() 
+
+for idx, (day, meals) in enumerate(meal_plan.items()):
+    with cols[idx % 3]:  # Distribute the days across columns
+        if st.button(day, key=day):  # Make buttons for each day
+            selected_meal.markdown(f'### {day} Meal Plan:\n- ' + '\n- '.join(meals))  # Display selected meals
+        
+        # Render the card using HTML
+        st.markdown(f"""
+        <div class="card" style="cursor: pointer;" onclick="this.click();">
+            <div class="card-content">
+                <h3>{day}</h3>
+                <p>Click for meals</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
 # Meal Plan Display Section
 st.markdown('<div class="meal-plan-section">', unsafe_allow_html=True)
 st.subheader('Selected Meal Plan')
-if selected_day:
-    st.write(f"**{selected_day}**")
-    st.write('\n- '.join(meal_plan[selected_day]))  # Display meals for the selected day
+if selected_meal:
+    st.write(selected_meal)  # Display meals for the selected day
 else:
     st.write("Click on a meal plan to view details here.")
 st.markdown('</div>', unsafe_allow_html=True)
