@@ -28,7 +28,7 @@ st.markdown("""
 
 /* Styling for the logo */
 .header-container img { 
-    width: 80px; /* Adjust width for the logo (make it smaller) */
+    width: 100px; /* Adjust width for the logo (make it smaller) */
     margin-right: 20px; /* Space between logo and subheader */
 }
 
@@ -109,20 +109,6 @@ section[data-testid="stSidebar"] {
 st.markdown("""
 <div class='header-container'>
     <img src="https://i.ibb.co/tmQpKH2/1-removebg-preview.png" alt="Meal Steal Logo">
-    <div class='subheader-container'>
-        <h2>Get Fit, Eat Smart, Spend Less</h2>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-# Continue with your other code...
-
-# -------------------------
-# 2. Logo, subheader
-# -------------------------
-st.markdown("""
-<div class='text-container'>
-    <img src="https://i.ibb.co/tmQpKH2/1-removebg-preview.png" alt="Meal Steal Logo" style="display: block; margin: 0 auto;">
     <div class='subheader-container'>
         <h2>Get Fit, Eat Smart, Spend Less</h2>
     </div>
