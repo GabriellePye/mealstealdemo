@@ -35,14 +35,14 @@ st.markdown("""
 /* Flex container for logo and subheader */
 .header-container {
     display: flex;
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
+    align-items: left; /* Center vertically */
+    justify-content: left; /* Center horizontally */
     margin: 20px; /* Add some margin */
 }
 
 /* Styling for the logo */
 .header-container img { 
-    width: 150px; /* Adjust width for the logo */
+    width: 100px; /* Adjust width for the logo */
     margin-right: 20px; /* Space between logo and subheader */
 }
 
