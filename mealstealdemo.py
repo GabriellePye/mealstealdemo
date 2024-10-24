@@ -6,6 +6,8 @@ import numpy as np
 # 1. Background, containers, styling
 # -------------------------
 
+import streamlit as st
+
 # CSS styles
 st.markdown("""
 <style>
@@ -16,6 +18,20 @@ st.markdown("""
     background-position: top;
 }
 
+/* Flex container for logo and subheader */
+.header-container {
+    display: flex;
+    align-items: center; /* Align vertically */
+    justify-content: center; /* Center horizontally */
+    margin: 20px; /* Add some margin */
+}
+
+/* Styling for the logo */
+.header-container img { 
+    width: 80px; /* Adjust width for the logo (make it smaller) */
+    margin-right: 20px; /* Space between logo and subheader */
+}
+
 /* styling for subheader + other text elements */
 .subheader-container {
     border: 2px solid white;
@@ -23,27 +39,9 @@ st.markdown("""
     background: rgba(255, 255, 255, 0.1);
     padding: 20px;
     border-radius: 15px;
-    text-align: center;
+    text-align: left; /* Align text to the left */
     max-width: 80%;  /* Adjusted for centering */
-    margin: 0 auto;
-}
-
-.subheader-container img { 
-    width: 300px;
-}
-
-/* Flex container for logo and subheader */
-.header-container {
-    display: flex;
-    align-items: left; /* Center vertically */
-    justify-content: left; /* Center horizontally */
-    margin: 20px; /* Add some margin */
-}
-
-/* Styling for the logo */
-.header-container img { 
-    width: 100px; /* Adjust width for the logo */
-    margin-right: 20px; /* Space between logo and subheader */
+    margin: 0; /* Remove automatic margins */
 }
 
 /* styling for tabs */
@@ -97,12 +95,27 @@ section[data-testid="stSidebar"] {
     color: #DAD7CD;
 }
 
+/* Space between tabs and tab panel */
 .stTabs [role="tabpanel"] {
     margin-top: 20px;  /* Adjust this value to create a gap */
 }
 
 </style>
 """, unsafe_allow_html=True)
+
+# -------------------------
+# 2. Logo and Subheader
+# -------------------------
+st.markdown("""
+<div class='header-container'>
+    <img src="https://i.ibb.co/tmQpKH2/1-removebg-preview.png" alt="Meal Steal Logo">
+    <div class='subheader-container'>
+        <h2>Get Fit, Eat Smart, Spend Less</h2>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# Continue with your other code...
 
 # -------------------------
 # 2. Logo, subheader
